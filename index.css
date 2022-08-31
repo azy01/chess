@@ -1,0 +1,47 @@
+body,
+body::after,
+body::before {
+	--chess-cell-size: 60px;
+	--color: 0, 0, 0;
+	box-sizing: border-box;
+}
+
+#chess-board {
+	border: 20px double black;
+	padding: 3px;
+}
+
+td {
+	padding: 0px;
+	height: var(--chess-cell-size);
+	width: var(--chess-cell-size);
+}
+
+td.white-square:hover {
+	box-shadow: 0px 0px 7px inset;
+}
+
+td.black-square:hover {
+	box-shadow: 0px 0px 7px black inset;
+}
+
+td.selected-cell {
+	box-shadow: 0px 0px 7px blue inset !important;
+	background: cyan;
+}
+
+.black-square {
+	background-color: rgba(var(--color), 40%);
+}
+
+.white-square {
+	background-color: white;
+}
+
+.chess-piece {
+	max-width: calc(var(--chess-cell-size) * 0.75);
+	max-height: calc(var(--chess-cell-size) * 0.75);
+	/* fill: rgba(var(--color), 70%); */
+	/* filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(120deg); */
+	/* opacity: 90% !important; */
+}

@@ -1,5 +1,3 @@
-const table = document.querySelector("#chess-board");
-
 const turnObject = (function () {
 	let turn = "white";
 	return {

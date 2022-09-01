@@ -12,7 +12,7 @@ body::before {
 }
 
 #history,
-#chess-board,
+#board-with-labels,
 #killed-pieces {
 	display: inline-block;
 	vertical-align: top;
@@ -28,10 +28,47 @@ body::before {
 	padding: 3px;
 }
 
+.label {
+	font-size: calc(var(--chess-cell-size) / 3);
+	font-style: italic;
+	color: grey;
+}
+
+#top-label {
+	transform: translate(
+		calc(var(--chess-cell-size) * 0.4),
+		calc(var(--chess-cell-size) * 0.2)
+	);
+}
+#right-label {
+	display: table-cell;
+}
+#bottom-label {
+	transform: translate(
+		calc(var(--chess-cell-size) * 0.4),
+		calc(var(--chess-cell-size) * -0.2)
+	);
+}
+#left-label {
+	display: table-cell;
+}
+
+#extra-container {
+	display: inline-block;
+}
+
+.table-container {
+	display: inline-table;
+	vertical-align: top;
+	transform: translateY(calc(var(--chess-cell-size) * 1.5));
+}
+
 td {
 	padding: 0px;
 	height: var(--chess-cell-size);
 	width: var(--chess-cell-size);
+	user-select: none;
+	position: relative;
 }
 
 td.white-square:hover {
@@ -58,6 +95,7 @@ td.selected-cell {
 .chess-piece {
 	max-width: calc(var(--chess-cell-size) * 0.75);
 	max-height: calc(var(--chess-cell-size) * 0.75);
+	user-select: none;
 	/* fill: rgba(var(--color), 70%); */
 	/* filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(120deg); */
 	/* opacity: 90% !important; */

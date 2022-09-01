@@ -77,7 +77,21 @@ const addHistory = (lastMove) => {
 	history.push(lastMove);
 
 	const element = document.createElement("li");
-	element.textContent = JSON.stringify(lastMove);
+	element.textContent = `${lastMove.piece
+		.replace(/-\d/, "")
+		.split("-")
+		.join(" ")} from ${lastMove.from} to ${lastMove.to}${
+		lastMove.victim
+			? ` replaced ${lastMove.victim.replace(/-\d/, "").split("-").join(" ")}`
+			: ""
+	}`;
+
+	const revertHistoryButton = document.createElement("button");
+	revertHistoryButton.textContent = "Jump Here";
+	let x = history.length;
+	revertHistoryButton.addEventListener("click", () => goToHistoryPoint(x));
+	element.appendChild(revertHistoryButton);
+
 	historyList.appendChild(element);
 };
 
@@ -95,6 +109,13 @@ button.addEventListener("click", () => {
 });
 button.textContent = "New Game";
 document.querySelector("#header").appendChild(button);
+
+// const debuggerButton = document.createElement("button");
+// debuggerButton.addEventListener("click", () => {
+// 	console.log(positions, originalPositions);
+// });
+// debuggerButton.textContent = "debugger";
+// document.querySelector("#header").appendChild(debuggerButton);
 
 const historyList = document.createElement("ol");
 historyList.setAttribute("id", "history-list");

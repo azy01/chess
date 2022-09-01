@@ -140,3 +140,36 @@ const onCellClickHandler = (rowId, colId) => {
 		}
 	}
 };
+
+const goToHistoryPoint = (index) => {
+	let lastPlayedColor;
+	while (history.length > index) {
+		const revertMove = history.pop();
+		historyList.removeChild(historyList.lastChild);
+
+		lastPlayedColor = revertMove.piece.replace(/-\d/, "").split("-")[0];
+		const name = revertMove.piece.replace(`${lastPlayedColor}-`, "");
+
+		positions[lastPlayedColor][
+			positions[lastPlayedColor].findIndex((piece) => piece.name === name)
+		].pos = revertMove.from;
+
+		if (revertMove.victim) {
+			const victimColor = revertMove.victim.replace(/-\d/, "").split("-")[0];
+			const victimName = revertMove.victim.replace(`${victimColor}-`, "");
+
+			positions[victimColor].push({
+				name: victimName,
+				pos: revertMove.to,
+			});
+		}
+	}
+
+	if (lastPlayedColor) {
+		chosenColor = lastPlayedColor;
+		if (turnObject.getTurn() !== chosenColor) turnObject.toggleTurn();
+
+		paintBoard(chosenColor);
+		setPiecesOnBoard();
+	}
+};

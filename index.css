@@ -6,6 +6,18 @@ body::before {
 	box-sizing: border-box;
 }
 
+#history,
+#chess-board,
+#killed-pieces {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#play-area {
+	text-align: center;
+	display: inline;
+}
+
 #chess-board {
 	border: 20px double black;
 	padding: 3px;

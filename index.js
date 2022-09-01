@@ -94,8 +94,8 @@ button.addEventListener("click", () => {
 	setPiecesOnBoard();
 });
 button.textContent = "New Game";
-document.querySelector("#pieces-container").appendChild(button);
+document.querySelector("#header").appendChild(button);
 
 const historyList = document.createElement("ol");
 historyList.setAttribute("id", "history-list");
-document.querySelector("#pieces-container").appendChild(historyList);
+document.querySelector("#history").appendChild(historyList);

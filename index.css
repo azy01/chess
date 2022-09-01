@@ -6,6 +6,11 @@ body::before {
 	box-sizing: border-box;
 }
 
+#header {
+	top: 0;
+	position: sticky;
+}
+
 #history,
 #chess-board,
 #killed-pieces {

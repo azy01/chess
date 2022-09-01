@@ -37,7 +37,7 @@ const straightMovePossible = (rowId, colId) => {
 		const minPosition = Math.min(startId, endId);
 		const maxPosition = Math.max(startId, endId);
 
-		for (let tempId = minPosition + 1; tempId < maxPosition - 1; tempId++) {
+		for (let tempId = minPosition + 1; tempId < maxPosition; tempId++) {
 			if (
 				document.querySelector(`#cell-${COLS()[tempId - 1]}${rowId}`)?.children
 					?.length
@@ -47,13 +47,13 @@ const straightMovePossible = (rowId, colId) => {
 		return true;
 	} else if (selectedCellObject.getSelectedCell().cellId[0] === colId) {
 		const startId =
-			ROWS().indexOf(selectedCellObject.getSelectedCell().cellId[0]) + 1;
-		const endId = ROWS().indexOf(colId) + 1;
+			ROWS().indexOf(selectedCellObject.getSelectedCell().cellId[1]) + 1;
+		const endId = ROWS().indexOf(rowId) + 1;
 
 		const minPosition = Math.min(startId, endId);
 		const maxPosition = Math.max(startId, endId);
 
-		for (let tempId = minPosition + 1; tempId < maxPosition - 1; tempId++) {
+		for (let tempId = minPosition + 1; tempId < maxPosition; tempId++) {
 			if (
 				document.querySelector(`#cell-${colId}${ROWS()[tempId - 1]}`)?.children
 					?.length

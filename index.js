@@ -75,14 +75,37 @@ const addHistory = (lastMove) => {
 	history.push(lastMove);
 
 	const element = document.createElement("li");
-	element.textContent = `${lastMove.piece
-		.replace(/-\d/, "")
-		.split("-")
-		.join(" ")} from ${lastMove.from} to ${lastMove.to}${
-		lastMove.victim
-			? ` replaced ${lastMove.victim.replace(/-\d/, "").split("-").join(" ")}`
-			: ""
-	}`;
+	const moverImg = document.createElement("img");
+	moverImg.setAttribute(
+		"src",
+		`./chessPieces/${lastMove.piece.split("-")[0]}-${
+			lastMove.piece.split("-")[1]
+		}.svg`
+	);
+	element.appendChild(moverImg);
+
+	const text = document.createTextNode(
+		`from ${lastMove.from} to ${lastMove.to}${
+			lastMove.victim ? ` replaced ` : ""
+		}`
+	);
+	element.appendChild(text);
+
+	const victimImg = lastMove.victim ? document.createElement("img") : null;
+	if (victimImg) {
+		const src = `./chessPieces/${lastMove.victim.split("-")[0]}-${
+			lastMove.victim.split("-")[1]
+		}.svg`;
+		victimImg.setAttribute("src", src);
+		element.appendChild(victimImg);
+
+		const newLi = document.createElement("li");
+		const newVictimImg = document.createElement("img");
+		const killedPieces = document.querySelector("#killed-pieces");
+		newVictimImg.setAttribute("src", src);
+		newLi.appendChild(newVictimImg);
+		killedPieces.appendChild(newLi);
+	}
 
 	const revertHistoryButton = document.createElement("button");
 	revertHistoryButton.textContent = "Jump Here";
@@ -95,6 +118,9 @@ const addHistory = (lastMove) => {
 
 const button = document.createElement("button");
 button.addEventListener("click", () => {
+	const killedPieces = document.querySelector("#killed-pieces");
+	killedPieces.replaceChildren();
+
 	if (turnObject.getTurn() === "black") chosenColor = turnObject.toggleTurn();
 	while (history.length) {
 		history.pop();
@@ -106,6 +132,7 @@ button.addEventListener("click", () => {
 	setPiecesOnBoard();
 });
 button.textContent = "New Game";
+button.setAttribute("id", "new-game");
 document.querySelector("#header").appendChild(button);
 
 // const debuggerButton = document.createElement("button");
@@ -115,6 +142,6 @@ document.querySelector("#header").appendChild(button);
 // debuggerButton.textContent = "debugger";
 // document.querySelector("#header").appendChild(debuggerButton);
 
-const historyList = document.createElement("ol");
+const historyList = document.createElement("div");
 historyList.setAttribute("id", "history-list");
 document.querySelector("#history").appendChild(historyList);

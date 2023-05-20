@@ -1,9 +1,14 @@
-body,
-body::after,
-body::before {
-	--chess-cell-size: 60px;
+*,
+*::after,
+*::before {
+	--chess-cell-size: min(60px, 8vw);
 	--color: 0, 0, 0;
 	box-sizing: border-box;
+	font-family: fantasy;
+	text-align: center;
+	margin: 0;
+	font-weight: bolder;
+	color: #333;
 }
 
 #header {
@@ -13,9 +18,41 @@ body::before {
 
 #history,
 #board-with-labels,
-#killed-pieces {
+.killed-pieces {
 	display: inline-block;
 	vertical-align: top;
+}
+
+#board-with-labels {
+	display: flex;
+}
+
+.killed-pieces {
+	flex: 1;
+	min-width: 2rem;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding-top: 8px;
+}
+#history {
+	flex: 4;
+	min-width: 10rem;
+	border: 1px solid black;
+	border-radius: 1rem;
+	padding-top: 8px;
+}
+#board-with-labels {
+	flex: 7;
+	justify-content: space-evenly;
+	min-width: max(30rem, 50vw);
+}
+
+#main {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 1rem 0.5rem;
 }
 
 #play-area {
@@ -51,6 +88,11 @@ body::before {
 }
 #left-label {
 	display: table-cell;
+}
+#left-label .label,
+#right-label .label,
+td {
+	text-align: center;
 }
 
 #extra-container {
@@ -99,4 +141,58 @@ td.selected-cell {
 	/* fill: rgba(var(--color), 70%); */
 	/* filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(120deg); */
 	/* opacity: 90% !important; */
+}
+
+#history-list img {
+	height: 1.5rem;
+	padding: 0px 8px;
+}
+#history-list li {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	list-style: none;
+	padding-top: 0.25rem;
+}
+#history-list li:last-of-type button {
+	visibility: hidden;
+}
+#history-list {
+	padding-right: 1rem;
+	padding-left: 1rem;
+}
+
+button {
+	background-color: aliceblue;
+	border: 1px solid cornflowerblue;
+	padding: 4px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: paleturquoise;
+}
+
+#killed-pieces {
+	display: block;
+}
+#killed-pieces li {
+	display: flex;
+	height: 2.5rem;
+	padding-top: 6px;
+}
+
+#header {
+	z-index: 10000;
+	height: 3rem;
+	display: flex;
+	padding: 0 2rem;
+	font-size: 2.5rem;
+	justify-content: space-between;
+	align-items: center;
+	background-image: linear-gradient(to bottom, #222, #555);
+}
+
+#chess-board td {
+	cursor: pointer;
 }

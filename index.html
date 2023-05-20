@@ -8,11 +8,16 @@
 		<title>Chess</title>
 	</head>
 	<body>
-		<header id="header"></header>
-		<div id="play-area">
-			<div id="history"></div>
-			<div id="board-with-labels"></div>
-			<div id="killed-pieces"></div>
+		<div id="chess-screen">
+			<header id="header"></header>
+			<main id="main">
+				<div class="killed-pieces">
+					<h3>Killed</h3>
+					<ul id="killed-pieces"></ul>
+				</div>
+				<div id="board-with-labels"></div>
+				<div id="history"><h3>History</h3></div>
+			</main>
 		</div>
 		<footer id="footer"></footer>
 		<script src="legalMoves.js"></script>

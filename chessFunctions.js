@@ -154,7 +154,10 @@ const goToHistoryPoint = (index) => {
 			positions[lastPlayedColor].findIndex((piece) => piece.name === name)
 		].pos = revertMove.from;
 
+		const killedPieces = document.querySelector("#killed-pieces");
+
 		if (revertMove.victim) {
+			killedPieces.removeChild(killedPieces.lastChild);
 			const victimColor = revertMove.victim.replace(/-\d/, "").split("-")[0];
 			const victimName = revertMove.victim.replace(`${victimColor}-`, "");
 

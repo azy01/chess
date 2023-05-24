@@ -15,7 +15,15 @@ BASIC TO-DO FEATURE SET
 6 add icons to history to make it easier to read
 
 7 add finishing conditions
-7a handle complicated situations and moves (like stalemate and castle)
+7a checkmate
+7b stalemate
+
+8 handle complicated moves
+8a check
+8b castle
+8c promotion
+
+9 handle toast
 
 ADVANCED TO-DO FEATURE SET
 

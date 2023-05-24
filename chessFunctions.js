@@ -175,4 +175,6 @@ const goToHistoryPoint = (index) => {
 		paintBoard(chosenColor);
 		setPiecesOnBoard();
 	}
+
+	selectedCellObject.setSelectedCell(undefined);
 };

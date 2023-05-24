@@ -145,3 +145,15 @@ document.querySelector("#header").appendChild(button);
 const historyList = document.createElement("div");
 historyList.setAttribute("id", "history-list");
 document.querySelector("#history").appendChild(historyList);
+
+// Create a toast element
+const toast = document.createElement("div");
+toast.classList.add("toast");
+toast.addEventListener("click", () => {
+	toast.classList.add("hide-toast");
+});
+
+// Append the toast to the body
+document.body.appendChild(toast);
+toast.classList.add("toast");
+toast.classList.add("hide-toast");

@@ -1,4 +1,6 @@
-const giveErrorMessage = () => {};
+const giveErrorMessage = (message, type) => {
+	showToast(message, type);
+};
 
 const getCellContents = (rowId, colId) => {
 	const piece = document.querySelector(`#cell-${colId}${rowId}`).children?.[0];
@@ -30,9 +32,20 @@ const checkIfLegalMove = (rowId, colId, type) => {
 	}
 };
 
-const validateMove = (rowId, colId) =>
-	!isCellOccupiedBySameColor(rowId, colId) &&
-	checkIfLegalMove(rowId, colId, selectedCellObject.getSelectedCell().type);
+const placingSelfInCheck = (rowId, colId) => {
+	return false;
+};
+
+const validateMove = (rowId, colId) => {
+	if (isCellOccupiedBySameColor(rowId, colId)) return { isValid: false };
+	if (
+		!checkIfLegalMove(rowId, colId, selectedCellObject.getSelectedCell().type)
+	)
+		return { isValid: false, invalidity: "Not a valid move for this piece" };
+	if (placingSelfInCheck(rowId, colId))
+		return { isValid: false, invalidity: "Can't place yourself in check" };
+	return { isValid: true };
+};
 
 const toggleSelectCell = (rowId, colId) => {
 	if (selectedCellObject.getSelectedCell()) {
@@ -52,6 +65,11 @@ const checkIfCellSelected = () => selectedCellObject.getSelectedCell();
 
 const checkIfItsSameCell = (rowId, colId) =>
 	selectedCellObject.getSelectedCell().cellId === `${colId}${rowId}`;
+
+const checkForCheck = () => {
+	return false;
+	showToast("Checked", "warn");
+};
 
 const makeMove = (rowId, colId) => {
 	const newParentEle = document.querySelector(`#cell-${colId}${rowId}`);
@@ -107,6 +125,8 @@ const makeMove = (rowId, colId) => {
 
 	addHistory(newMove);
 
+	checkForCheck();
+
 	if (playingWithSelf) {
 		chosenColor = turnObject.toggleTurn();
 		const board = document.querySelector("#chess-board");
@@ -124,12 +144,12 @@ const onCellClickHandler = (rowId, colId) => {
 		if (checkIfCellSelected()) {
 			if (checkIfItsSameCell(rowId, colId)) toggleSelectCell(rowId, colId);
 			else {
-				const isMoveValid = validateMove(rowId, colId);
+				const moveValidity = validateMove(rowId, colId);
 
-				if (isMoveValid) {
+				if (moveValidity.isValid) {
 					makeMove(rowId, colId);
 				} else {
-					giveErrorMessage(isMoveValid?.invalidity);
+					giveErrorMessage(moveValidity?.invalidity, "error");
 				}
 			}
 		} else {
@@ -178,3 +198,15 @@ const goToHistoryPoint = (index) => {
 
 	selectedCellObject.setSelectedCell(undefined);
 };
+
+function showToast(message, type = "error") {
+	toast.innerText = message;
+	toast.classList.remove("hide-toast");
+	toast.classList.add(`toast-${type}`);
+
+	// Set a timeout to remove the toast after 3 seconds
+	setTimeout(function () {
+		toast.innerText = "";
+		toast.classList.add("hide-toast");
+	}, 5000);
+}
